@@ -46,3 +46,30 @@ class Product(models.Model):
 
     def __str__(self):
         return f'Product #{self.pk} - Name: {self.name}'
+
+
+class Staff(models.Model):
+    WAITER = 'WTR'
+    CASHIER = 'CSHR'
+    JANITOR = 'JNTR'
+    MANAGER = 'MNGR'
+    ADMIN = 'ADMN'
+
+    POSITION_CHOICES = (
+        (WAITER, 'Waiter'),
+        (CASHIER, 'Cashier'),
+        (JANITOR, 'Janitor'),
+        (MANAGER, 'Manager'),
+        (ADMIN, 'Admin'),
+    )
+    position = models.CharField(max_length=5, choices=POSITION_CHOICES,
+                                default=WAITER)
+    full_name = models.CharField(max_length=255)
+    labor_contract = models.IntegerField(default=0)
+
+    def __str__(self):
+        return f'Staff #{self.pk} - Position: {self.position}'
+
+    class Meta:
+        verbose_name = 'Staff'
+        verbose_name_plural = 'Staff'
