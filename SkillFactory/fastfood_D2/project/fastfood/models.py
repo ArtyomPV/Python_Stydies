@@ -26,3 +26,23 @@ class Order(models.Model):
         self.time_out = datetime.now()
         self.complete = True
         self.save()
+
+
+class Product(models.Model):
+    DRINK = 'DRNK'
+    BURGER = 'BRGR'
+    SNACK = 'SNCK'
+    DESSERT = 'DSRT'
+
+    TYPE_CHOICES = (
+        (DRINK, 'Drink'),
+        (BURGER, 'Burger'),
+        (SNACK, 'Snack'),
+        (DESSERT, 'Dessert'),
+    )
+    type = models.CharField(max_length=5, choices=TYPE_CHOICES, default=BURGER)
+    name = models.CharField(max_length=255)
+    price = models.IntegerField(default=0)
+
+    def __str__(self):
+        return f'Product #{self.pk} - Name: {self.name}'
