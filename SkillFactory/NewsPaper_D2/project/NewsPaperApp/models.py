@@ -21,3 +21,30 @@ class Category(models.Model):
     name = models.CharField(max_length=150, unique=True)
 
 
+class Post(models.Model):
+    NEWS = 'NW'
+    POST = 'PT'
+    POSTS = [
+        (NEWS, 'news'),
+        (POST, 'post')
+    ]
+    author = models.ForeignKey(Author, on_delete=models.CASCADE)
+    post_type = models.CharField(max_length=2, choices=POSTS, default=NEWS)
+    data_post_creation = models.DateTimeField(auto_now_add=True)
+    title = models.CharField(max_length=255)
+    text = models.TextField()
+    rating_post = models.IntegerField(default=0)
+    category = models.ManyToManyField(Category, through='PostCategory')
+
+    def like(self):
+        self.rating_post += 1
+        self.save()
+
+    def dislike(self):
+        self.rating_post -= 1
+        self.save()
+
+    def preview(self):
+        return self.text[0:123] + '...'
+
+
