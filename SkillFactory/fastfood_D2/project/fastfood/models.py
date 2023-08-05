@@ -1,5 +1,5 @@
 from datetime import datetime
-
+from django.core.validators import MinValueValidator
 from django.db import models
 
 
@@ -42,7 +42,8 @@ class Product(models.Model):
     )
     type = models.CharField(max_length=5, choices=TYPE_CHOICES, default=BURGER)
     name = models.CharField(max_length=255)
-    price = models.IntegerField(default=0)
+    price = models.IntegerField(default=0, validators=[MinValueValidator(0)])
+    description = models.TextField(default='type text')
 
     def __str__(self):
         return f'Product #{self.pk} - Name: {self.name}'
