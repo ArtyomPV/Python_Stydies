@@ -1,0 +1,15 @@
+<!-- наследуемся от шаблона base.html -->
+{% extends 'layout/base.html %}
+<!-- загрузка наших фильтров -->
+{% load custom_filters %}
+
+{% block title %}
+<!-- название будет Products -->
+Products
+{% endblock title %}
+
+<!-- в контенте на странице выводим все товары -->
+{% block content %}
+<h1>Все продукты</h1>
+{{ products }}
+{% endblock content %}
